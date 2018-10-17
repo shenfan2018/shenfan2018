@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "shenfan2018", "shenfan2018\shenfan2018.rxproj", "{983046BA-B2F0-4F05-B298-2768DB07D2CE}"
 EndProject
-Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "fundflow and risktaking", "..\fundflow and risktaking\fundflow and risktaking.rxproj", "{333ECB83-BCA5-4846-BB80-556A9DF039D6}"
+Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "fundflow and risktaking", "fundflow and risktaking\fundflow and risktaking.rxproj", "{333ECB83-BCA5-4846-BB80-556A9DF039D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

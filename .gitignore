@@ -259,3 +259,14 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/fundflow and risktaking/datacapm.RData
+/fundflow and risktaking/datafama.RData
+/fundflow and risktaking/datamain.RData
+/fundflow and risktaking/datamain2.RData
+/fundflow and risktaking/datamain3.RData
+/fundflow and risktaking/datamain4.RData
+/fundflow and risktaking/datamaincp.RData
+/fundflow and risktaking/stock.RData
+/fundflow and risktaking/.RData
+/fundflow and risktaking/4.png
+/fundflow and risktaking/table1.txt
