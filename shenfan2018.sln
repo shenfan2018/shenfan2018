@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "shenfan2018", "shenfan2018\shenfan2018.rxproj", "{983046BA-B2F0-4F05-B298-2768DB07D2CE}"
+EndProject
+Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "fundflow and risktaking", "..\fundflow and risktaking\fundflow and risktaking.rxproj", "{333ECB83-BCA5-4846-BB80-556A9DF039D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{983046BA-B2F0-4F05-B298-2768DB07D2CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983046BA-B2F0-4F05-B298-2768DB07D2CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983046BA-B2F0-4F05-B298-2768DB07D2CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983046BA-B2F0-4F05-B298-2768DB07D2CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{333ECB83-BCA5-4846-BB80-556A9DF039D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{333ECB83-BCA5-4846-BB80-556A9DF039D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{333ECB83-BCA5-4846-BB80-556A9DF039D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{333ECB83-BCA5-4846-BB80-556A9DF039D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A4ECB77-0828-43E8-9CE7-F891036D6551}
+	EndGlobalSection
+EndGlobal
