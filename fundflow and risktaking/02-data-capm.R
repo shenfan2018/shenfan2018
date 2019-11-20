@@ -12,35 +12,36 @@ rm(NAV1,NAV2,NAV3,NAV4,NAV5,NAV6,NAV7)
 data.NAV<-NAV
 data.NAV<-as.data.table(data.NAV)
 setnames(data.NAV,1:2,c("date","id"))
-data.NAV<-data.NAV[date!="没有单位'",.SD][date!="统计日期'",.SD][
-  ,AdjustedNAV:=as.numeric(as.character(AdjustedNAV))][
-    ,AdjustedNAVGrowth:=as.numeric(as.character(AdjustedNAVGrowth))][
-      ,date:=as.Date(as.character(date))][
-        ,c("FullName","NAV"):=NULL]
+data.NAV <- data.NAV[date != "没有单位'", .SD
+	][date != "统计日期'", .SD
+	][, AdjustedNAV := as.numeric(as.character(AdjustedNAV))
+	][, AdjustedNAVGrowth := as.numeric(as.character(AdjustedNAVGrowth))
+	][, date := as.Date(as.character(date))
+	][, c("FullName", "NAV") := NULL]
 
-#根据adjustedNAV自己算return
+#根据adjustedNAV自己算return,这里的不要百分号，最简单的形式
 #排序
-data.NAV<-data.NAV[order(id,date)][
-  ,AdjustedNAV1:=shift(AdjustedNAV,n=1,fill=NA,type="lag"),keyby=.(id)][
-    ,return.daily:=100*(log(AdjustedNAV)-log(AdjustedNAV1))][
-        ,quarter:=quarter(date)][
-          ,year:=year(date)][
-            ,risk.total:=sd((return.daily),na.rm=TRUE),by=.(quarter,year,id)][
-              ,period_return:=(AdjustedNAV[.N]-AdjustedNAV[1])/AdjustedNAV[1],keyby=.(quarter,year,id)]
+data.NAV <- data.NAV[order(id, date)
+	][, AdjustedNAV1 := shift(AdjustedNAV, n = 1, fill = NA, type = "lag"), keyby = .(id)
+	][, return.daily := (log(AdjustedNAV) - log(AdjustedNAV1))
+	][, quarter := quarter(date)
+	][, year := year(date)
+	][, risk.total := sd((return.daily), na.rm = TRUE), by = .(quarter, year, id)
+	][, period_return := (log(AdjustedNAV[.N]) - log(AdjustedNAV[1])), keyby = .(quarter, year, id)]
 
-data.capm<-data.NAV[,c("id","date","return.daily","risk.total","period_return")]
+data.capm<-data.NAV[,c("id","date","quarter","year","return.daily","risk.total","period_return")]
 
 #加入riskfree
 riskfree<-read_excel("C://Users//shenfan//Desktop//data//CAPM//risk-free.xlsx")
 riskfree<-as.data.table(riskfree)
 setnames(riskfree,1,"date")
 setnames(riskfree,2,"risk_free")
-riskfree<-riskfree[,date:=as.Date(date)][
-  ,risk_free.daily:=(risk_free+1)^(1/365)-1]
+riskfree <- riskfree[, date := as.Date(date)
+	][, risk_free.daily := (risk_free + 1) ^ (1 / 365) - 1]
 
 add<-riskfree[,c("date","risk_free.daily")]
 #riskfree匹配上主表
-data.capm<-add[data.capm,on=.(date),nomatch=0]
+data.capm <- add[data.capm, on = .(date), nomatch = 0]
 
 #market risk
 marketrisk<-read_excel("C://Users//shenfan//Desktop//data//CAPM//综合日市场回报率文件2//TRD_Cndalym.xlsx")
@@ -55,7 +56,16 @@ marketrisk<-marketrisk[date!="没有单位'",.SD][date!="交易日期'",.SD][
     ,market_return:=as.numeric(as.character(market_return))]
 
 #匹配market risk
-data.capm<-marketrisk[data.capm,on=.(date),nomatch=0]
+data.capm <- marketrisk[data.capm, on = .(date), nomatch = 0]
+
+
+
+#计算调整后的收益（减去市场风险的）
+data.capm <- data.capm[, return.adj.daily := return.daily - market_return
+	][, risk.adj.total := sd((return.adj.daily), na.rm = TRUE), by = .(quarter, year, id)]
+
+#删掉year和quarter
+data.capm[, c("year", "quarter") := NULL]
 
 #fund style(wind+csmar)
 fund.csmar<-read_excel("C://Users//shenfan//Desktop//data//基金类型风格//Fund_MainInfo.xlsx")
@@ -81,7 +91,6 @@ data.capm<-data.capm[Category=="股票型基金"|Category=="混合型基金",.SD][
 #就算capm的东西
 data.capm<-data.capm[,riskpreimum:=market_return-risk_free.daily]
 data.capm<-data.capm[,rit:=return.daily-risk_free.daily]
-
 
 rm(data.NAV,marketrisk,riskfree,NAV,add,fund.csmar,fund.wind,fund.category)
 save(data.capm,file="datacapm.RData")

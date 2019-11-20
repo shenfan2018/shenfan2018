@@ -1,4 +1,5 @@
-load("C://Users//shenfan//Desktop//data//project//fundflow and risktaking//datafama.RData")
+load("datafama.RData")
+load("datamain2.RData")
 
 # »Ø¹é²Ð²î aplha beta
 data.fama<-data.fama[,rd3:=residuals(lm(rit~riskpreimum+SMB+HML)), keyby = .(id,year,quarter)][

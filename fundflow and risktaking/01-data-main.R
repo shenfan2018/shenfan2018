@@ -19,18 +19,18 @@ data.main<-fundflow
 sharechange<-read_excel("C://Users//shenfan//Desktop//data//股票型混合型//Fund_ShareChange.xlsx")
 sharechange<-as.data.table(sharechange)
 setnames(sharechange,2:11,c("class","id","type","start","DateQ","beginning","purchase","redemption","split","end"))
-sharechange<-sharechange[id!="基金代码'",.SD][
-  id!="没有单位'"][
-    ,type:=as.numeric(as.character(type))][
-    type==1|type==2|type==3|type==4,.SD][
-      ,DateQ:=as.Date(as.character(DateQ))][
-        ,beginning:=as.numeric(as.character(beginning))][
-          ,purchase:=as.numeric(as.character(purchase))][
-            ,redemption:=as.numeric(as.character(redemption))][
-              ,end:=as.numeric(as.character(end))][
-                ,inflow:=100*purchase/beginning][
-                  ,outflow:=100*redemption/beginning][
-                    ,netflow:=100*(purchase-redemption)/beginning]
+sharechange <- sharechange[id != "基金代码'", .SD
+	][id != "没有单位'"
+	][, type := as.numeric(as.character(type))
+	][type == 1 | type == 2 | type == 3 | type == 4, .SD
+	][, DateQ := as.Date(as.character(DateQ))
+	][, beginning := as.numeric(as.character(beginning))
+	][, purchase := as.numeric(as.character(purchase))
+	][, redemption := as.numeric(as.character(redemption))
+	][, end := as.numeric(as.character(end))
+	][, inflow := 100 * purchase / beginning
+	][, outflow := 100 * redemption / beginning
+	][, netflow := 100 * (purchase - redemption) / beginning]
                    
 add<-sharechange[,c("id","DateQ","inflow","outflow","netflow")]
 
